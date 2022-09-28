@@ -1,4 +1,6 @@
-export function completedBtnStyle(completed) {
+import { StyleButton } from '../types/functionTypes';
+
+export function completedBtnStyle(completed: string): StyleButton {
   if (completed === 'completed') {
     return {
       background: '#fcbfb7',
@@ -12,7 +14,7 @@ export function completedBtnStyle(completed) {
   }
 }
 
-export function notCompletedBtnStyle(completed) {
+export function notCompletedBtnStyle(completed: string): StyleButton {
   if (completed === 'not completed') {
     return {
       background: '#fcbfb7',
@@ -24,4 +26,8 @@ export function notCompletedBtnStyle(completed) {
       color: '#334e58',
     };
   }
+}
+
+export function isCompleted(completed: boolean): string {
+  return completed ? 'line-through' : 'none';
 }

@@ -6,6 +6,10 @@ body {
   padding: 0px;
 }
 
+button {
+  cursor: pointer;
+}
+
 .home-page {
   margin: auto;
   padding: 35px 0;

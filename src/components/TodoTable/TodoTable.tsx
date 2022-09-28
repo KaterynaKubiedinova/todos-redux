@@ -1,16 +1,16 @@
 import React from 'react';
 import './style.css';
 import TableRow from './TableRow';
-import { useSelector } from 'react-redux';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
-export default function TodoTable({
-  onDelete,
-  onSubmit,
-  onTodo,
-  onEdit,
-  onChangeTitle,
-}) {
-  const todos = useSelector((state) => state.todos);
+const TodoTable: React.FC<{
+  onDelete: Function;
+  onSubmit: Function;
+  onTodo: Function;
+  onEdit: Function;
+  onChangeTitle: Function;
+}> = ({ onDelete, onSubmit, onTodo, onEdit, onChangeTitle }) => {
+  const todos = useTypedSelector((state) => state.todo.todos);
 
   return (
     <>
@@ -40,4 +40,6 @@ export default function TodoTable({
       ) : null}
     </>
   );
-}
+};
+
+export default TodoTable;

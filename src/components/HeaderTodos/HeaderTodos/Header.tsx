@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setIsCompleted } from '../../../store/actions';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
+import { setIsCompleted } from '../../../store/actions/actionsTodo';
 import './style.css';
 
 export default function Header() {
-  const name = useSelector((state) => state.name);
-  const todos = useSelector((state) => state.todos);
-  const isCompleted = useSelector((state) => state.isCompleted);
+  const name = useTypedSelector((state) => state.user.name);
+  const { todos, isCompleted } = useTypedSelector((state) => state.todo);
   const dispatch = useDispatch();
   const { notCompleted } = isCompleted;
 
