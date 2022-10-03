@@ -1,6 +1,7 @@
+import { UserActionTypes } from '../../types/userTypes';
 export const setName = (name: string) => {
   return {
-    type: 'SET_NAME',
+    type: UserActionTypes.SET_NAME,
     payload: name,
   };
 };
