@@ -1,0 +1,33 @@
+.todo-table {
+  background: #d1aca0;
+  padding: 5px;
+  font-size: 25px;
+  margin-top: 25px;
+  width: 80%;
+  table-layout: fixed;
+  text-align: start;
+  align-items: center;
+}
+
+.row button {
+  border-radius: 25%;
+  padding: 5px 0 3px 0;
+  background: #61636b;
+  color: #d1aca0;
+  border: none;
+  margin-left: 5px;
+  font-size: 25px;
+  height: 35px;
+  width: 35px;
+}
+
+.row td {
+  padding: 5px;
+  word-wrap: break-word;
+}
+
+.row input {
+  width: 95%;
+  background: #f1dddab6;
+  outline: none;
+}

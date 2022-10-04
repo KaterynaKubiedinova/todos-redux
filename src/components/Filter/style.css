@@ -1,0 +1,35 @@
+.filter {
+  background: #334e58;
+  width: 75%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  margin-top: 20px;
+  display: flex;
+}
+
+.filter-buttons button {
+  margin: 5px;
+  min-width: 180px;
+  border: none;
+  height: 30px;
+  font-size: 18px;
+}
+
+.filtred-todos {
+  width: 80%;
+  margin: auto;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  background: #b0b3c1;
+  color: #334e58;
+}
+
+.filtred-todos span {
+  font-size: 24px;
+}
