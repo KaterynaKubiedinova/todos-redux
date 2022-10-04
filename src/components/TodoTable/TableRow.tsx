@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { ChangeEvent, MouseEvent } from 'react';
 import './style.css';
 import { AiOutlineEdit } from 'react-icons/ai';
@@ -6,6 +8,7 @@ import { Todo } from '../../types/todosType';
 import { isCompleted } from '../../functions/styleFunc';
 import { completeTodo } from '../../store/actions/actionsTodo';
 import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 const TableRow: React.FC<{
   todo: Todo;
@@ -17,6 +20,7 @@ const TableRow: React.FC<{
   onChangeTitle: Function;
 }> = ({ todo, index, onDelete, onEdit, onTodo, onSubmit, onChangeTitle }) => {
   const editClicked = todo.editClicked;
+  const { todos } = useTypedSelector((state) => state.todo);
   const dispatch = useDispatch();
 
   function onEditBtn(e: MouseEvent<HTMLButtonElement>): void {
@@ -32,16 +36,13 @@ const TableRow: React.FC<{
   function onChange(e: ChangeEvent<HTMLInputElement>): void {
     e.stopPropagation();
     const value = e.target.value;
-    onChangeTitle(todo, value);
+    onChangeTitle(todo.id, value);
   }
 
   function onSubmitClick(e: ChangeEvent<HTMLFormElement>): void {
     e.stopPropagation();
     e.preventDefault();
     onSubmit(todo.id);
-    if (todo.completed) {
-      dispatch(completeTodo(todo.id));
-    }
   }
 
   function onTodoClick(e: MouseEvent): void {
@@ -54,7 +55,10 @@ const TableRow: React.FC<{
       <td>{index + 1}</td>
       <td
         onClick={onTodoClick}
-        style={{ textDecoration: isCompleted(todo.completed), cursor: 'pointer' }}
+        style={{
+          textDecoration: isCompleted(todo.completed),
+          cursor: 'pointer',
+        }}
       >
         {editClicked ? (
           <form onSubmit={onSubmitClick}>

@@ -5,13 +5,7 @@ export interface Todo {
   id: number;
 }
 
-export interface UpdatedTitle {
-  id: number;
-  title: string;
-}
-
 export interface TodosState {
-  name: string;
   todos: Todo[];
   newValue: string;
   value: string;
@@ -23,7 +17,6 @@ export interface TodosState {
 }
 
 export enum TodosActionTypes {
-  SET_NAME = 'SET_NAME',
   CHANGE_VALUE = 'CHANGE_VALUE',
   SET_TODO = 'SET_TODO',
   DELETE_TODO = 'DELETE_TODO',
@@ -34,11 +27,6 @@ export enum TodosActionTypes {
   COMPLETE_TODO = 'COMPLETE_TODO',
 }
 
-interface SetNameAction {
-  type: TodosActionTypes.SET_NAME;
-  payload: string;
-}
-
 interface ChangeValueAction {
   type: TodosActionTypes.CHANGE_VALUE;
   payload: string;
@@ -46,22 +34,22 @@ interface ChangeValueAction {
 
 interface SetTodoAction {
   type: TodosActionTypes.SET_TODO;
-  payload: string;
+  payload: [string, number];
 }
 
 interface DeleteTodoAction {
   type: TodosActionTypes.DELETE_TODO;
-  payload: number;
+  payload: Todo[];
 }
 
 interface UpdateTodoTitleAction {
   type: TodosActionTypes.UPDATE_TODO_TITLE;
-  payload: UpdatedTitle;
+  payload: Todo[];
 }
 
 interface EditClickAction {
   type: TodosActionTypes.EDIT_CLICK;
-  payload: number;
+  payload: Todo[];
 }
 
 interface SetIsCompletedAction {
@@ -76,11 +64,10 @@ interface SetFilterAction {
 
 interface CompleteTodoAction {
   type: TodosActionTypes.COMPLETE_TODO;
-  payload: number;
+  payload: Todo[];
 }
 
 export type TodosAction =
-  | SetNameAction
   | ChangeValueAction
   | SetTodoAction
   | DeleteTodoAction

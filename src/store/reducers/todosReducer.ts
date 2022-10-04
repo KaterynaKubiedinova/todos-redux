@@ -4,8 +4,7 @@ import {
   TodosState,
 } from '../../types/todosType';
 
-const initialState: TodosState = {
-  name: '',
+export const initialState: TodosState = {
   todos: [],
   newValue: '',
   value: '',
@@ -21,11 +20,6 @@ export const todosReducer = (
   action: TodosAction
 ): TodosState => {
   switch (action.type) {
-    case TodosActionTypes.SET_NAME:
-      return {
-        ...state,
-        name: action.payload,
-      };
     case TodosActionTypes.CHANGE_VALUE:
       return {
         ...state,
@@ -38,48 +32,32 @@ export const todosReducer = (
         todos: [
           ...state.todos,
           {
-            title: action.payload,
+            title: action.payload[0],
             completed: false,
             editClicked: false,
-            id: Date.now(),
+            id: action.payload[1],
           },
         ],
       };
     case TodosActionTypes.DELETE_TODO:
-      const deletedTodos = state.todos.filter(
-        (todo) => todo.id !== action.payload
-      );
       return {
         ...state,
-        todos: deletedTodos,
+        todos:action.payload,
       };
     case TodosActionTypes.UPDATE_TODO_TITLE:
-      const updatedTodos = state.todos.map((todo) =>
-        todo.id === action.payload.id ? { ...todo, ...action.payload } : todo
-      );
       return {
         ...state,
-        todos: updatedTodos,
+        todos: action.payload,
       };
     case TodosActionTypes.COMPLETE_TODO:
-      const completeTodos = state.todos.map((todo) =>
-        todo.id === action.payload
-          ? { ...todo, completed: !todo.completed }
-          : todo
-      );
       return {
         ...state,
-        todos: completeTodos,
+        todos: action.payload,
       };
     case TodosActionTypes.EDIT_CLICK:
-      const newTodos = state.todos.map((todo) =>
-        todo.id === action.payload
-          ? { ...todo, editClicked: !todo.editClicked }
-          : todo
-      );
       return {
         ...state,
-        todos: newTodos,
+        todos: action.payload,
       };
     case TodosActionTypes.SET_IS_COMPLETED:
       const notCompletedArr = action.payload.filter(

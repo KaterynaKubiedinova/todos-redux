@@ -1,57 +1,58 @@
-import { Todo, UpdatedTitle } from '../../types/todosType';
+import { TodosActionTypes } from '../../types/todosType';
+import { Todo } from '../../types/todosType';
 
-export const setTodo = (value: string) => {
+export const setTodo = (value: [string, number]) => {
   return {
-    type: 'SET_TODO',
+    type: TodosActionTypes.SET_TODO,
     payload: value,
   };
 };
 
 export const changeValue = (value: string) => {
   return {
-    type: 'CHANGE_VALUE',
+    type: TodosActionTypes.CHANGE_VALUE,
     payload: value,
   };
 };
 
-export const deleteTodo = (id: number) => {
+export const deleteTodo = (todos: Todo[]) => {
   return {
-    type: 'DELETE_TODO',
-    payload: id,
+    type: TodosActionTypes.DELETE_TODO,
+    payload: todos,
   };
 };
 
-export const updateTodoTitle = (newData: UpdatedTitle) => {
+export const updateTodoTitle = (todos: Todo[]) => {
   return {
-    type: 'UPDATE_TODO_TITLE',
-    payload: newData,
+    type: TodosActionTypes.UPDATE_TODO_TITLE,
+    payload: todos,
   };
 };
 
-export const editClick = (id: number) => {
+export const editClick = (todos: Todo[]) => {
   return {
-    type: 'EDIT_CLICK',
-    payload: id,
+    type: TodosActionTypes.EDIT_CLICK,
+    payload: todos,
   };
 };
 
 export const setIsCompleted = (todos: Todo[]) => {
   return {
-    type: 'SET_IS_COMPLETED',
+    type: TodosActionTypes.SET_IS_COMPLETED,
     payload: todos,
   };
 };
 
 export const setFilter = (value: string) => {
   return {
-    type: 'SET_FILTER',
+    type: TodosActionTypes.SET_FILTER,
     payload: value,
   };
 };
 
-export const completeTodo = (id: number) => {
+export const completeTodo = (todos: Todo[]) => {
   return {
-    type: 'COMPLETE_TODO',
-    payload: id,
+    type: TodosActionTypes.COMPLETE_TODO,
+    payload: todos,
   };
 };

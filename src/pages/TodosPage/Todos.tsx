@@ -1,3 +1,5 @@
+/** @format */
+
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import Header from '../../components/HeaderTodos/HeaderTodos/Header';
@@ -25,7 +27,8 @@ const TodosPage: React.FC = () => {
   const dispatch = useDispatch();
 
   function onDelete(id: number): void {
-    dispatch(deleteTodo(id));
+    const deletedTodos = todos.filter((todo) => todo.id !== id);
+    dispatch(deleteTodo(deletedTodos));
     dispatch(setIsCompleted(todos));
   }
 
@@ -34,30 +37,43 @@ const TodosPage: React.FC = () => {
   }
 
   function onAdd(): void {
-    dispatch(setTodo(value));
+    const id = Date.now();
+    dispatch(setTodo([value, id]));
     dispatch(changeValue(''));
     dispatch(setIsCompleted(todos));
   }
 
-  function onChangeTitle(todo: Todo, value: string) {
-    dispatch(updateTodoTitle({ id: todo.id, title: value }));
+  function onChangeTitle(id: number, value: string) {
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, title: value } : todo
+    );
+    dispatch(updateTodoTitle(updatedTodos));
     dispatch(setIsCompleted(todos));
   }
 
   function onSubmit(id: number) {
-    dispatch(editClick(id));
+    const newTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, editClicked: !todo.editClicked } : todo
+    );
+    dispatch(editClick(newTodos));
     dispatch(setIsCompleted(todos));
   }
 
-  function onTodo(todo: Todo) {
-    if (!todo.editClicked) {
-      dispatch(completeTodo(todo.id));
+  function onTodo(todoVal: Todo) {
+    if (!todoVal.editClicked) {
+      const completeTodos = todos.map((todo) =>
+        todo.id === todoVal.id ? { ...todo, completed: !todo.completed } : todo
+      );
+      dispatch(completeTodo(completeTodos));
       dispatch(setIsCompleted(todos));
     }
   }
 
   function onEdit(id: number) {
-    dispatch(editClick(id));
+    const newTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, editClicked: !todo.editClicked } : todo
+    );
+    dispatch(editClick(newTodos));
     dispatch(setIsCompleted(todos));
   }
 
