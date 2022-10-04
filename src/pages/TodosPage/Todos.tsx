@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Header from '../../components/HeaderTodos/HeaderTodos/Header';
 import Form from '../../components/Form/Form';
 import './style.css';
@@ -9,55 +9,54 @@ import {
   deleteTodo,
   setIsCompleted,
   editClick,
-  updateTodo,
+  updateTodoTitle,
   setFilter,
-} from '../../store/actions';
+  completeTodo,
+} from '../../store/actions/actionsTodo';
 import TodoTable from '../../components/TodoTable/TodoTable';
 import FilterTodos from '../../components/Filter/FilterTodos';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { Todo } from '../../types/todosType';
 
-export default function TodosPage() {
-  const todos = useSelector((state) => state.todos);
-  const value = useSelector((state) => state.value);
-  const filterCompleted = useSelector((state) => state.filterCompleted);
+const TodosPage: React.FC = () => {
+  const { todos, value, filterCompleted } = useTypedSelector(
+    (state) => state.todo
+  );
   const dispatch = useDispatch();
 
-  function onDelete(id) {
-    const newTodos = todos.filter((todo) => todo.id !== id);
-    dispatch(deleteTodo(newTodos));
+  function onDelete(id: number): void {
+    dispatch(deleteTodo(id));
     dispatch(setIsCompleted(todos));
   }
 
-  function onChange(e) {
-    e.preventDefault();
-    const value = e.target.value;
+  function onChange(value: string): void {
     dispatch(changeValue(value));
   }
 
-  function onAdd(e) {
-    e.preventDefault();
-    dispatch(setTodo());
+  function onAdd(): void {
+    dispatch(setTodo(value));
     dispatch(changeValue(''));
     dispatch(setIsCompleted(todos));
   }
 
-  function onChangeTitle(todo, value) {
-    dispatch(updateTodo({ id: todo.id, title: value }));
+  function onChangeTitle(todo: Todo, value: string) {
+    dispatch(updateTodoTitle({ id: todo.id, title: value }));
     dispatch(setIsCompleted(todos));
   }
 
-  function onSubmit(id) {
+  function onSubmit(id: number) {
     dispatch(editClick(id));
     dispatch(setIsCompleted(todos));
   }
 
-  function onTodo(todo) {
+  function onTodo(todo: Todo) {
     if (!todo.editClicked) {
-      dispatch(updateTodo({ id: todo.id, completed: !todo.completed }));
+      dispatch(completeTodo(todo.id));
       dispatch(setIsCompleted(todos));
     }
   }
 
-  function onEdit(id) {
+  function onEdit(id: number) {
     dispatch(editClick(id));
     dispatch(setIsCompleted(todos));
   }
@@ -101,4 +100,6 @@ export default function TodosPage() {
       />
     </div>
   );
-}
+};
+
+export default TodosPage;

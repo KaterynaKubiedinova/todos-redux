@@ -1,27 +1,28 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { MouseEvent } from 'react';
 import {
   completedBtnStyle,
   notCompletedBtnStyle,
 } from '../../functions/styleFunc';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 import './style.css';
 
-export default function FilterTodos({
-  filterCompletedBtn,
-  filterNotCompletedBtn,
-}) {
-  const filterCompleted = useSelector((state) => state.filterCompleted);
-  const isCompleted = useSelector((state) => state.isCompleted);
+const FilterTodos: React.FC<{
+  filterCompletedBtn: Function;
+  filterNotCompletedBtn: Function;
+}> = ({ filterCompletedBtn, filterNotCompletedBtn }) => {
+  const { filterCompleted, isCompleted } = useTypedSelector(
+    (state) => state.todo
+  );
   const { notCompleted, alreadyCompleted } = isCompleted;
 
-  function completedBtn(e) {
+  function completedBtn(e: MouseEvent): void {
     e.stopPropagation();
     if (alreadyCompleted.length) {
       filterCompletedBtn();
     }
   }
 
-  function notCompletedBtn(e) {
+  function notCompletedBtn(e: MouseEvent): void {
     e.stopPropagation();
     if (notCompleted.length) {
       filterNotCompletedBtn();
@@ -66,4 +67,6 @@ export default function FilterTodos({
       </div>
     </div>
   );
-}
+};
+
+export default FilterTodos;
